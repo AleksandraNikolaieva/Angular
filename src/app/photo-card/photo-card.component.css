@@ -1,0 +1,46 @@
+img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.card {
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    background: #ffff;
+}
+
+.avatar {
+    width: 14%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.owner {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    cursor: pointer;
+}
+
+span {
+    margin: 5px;
+}
+
+input {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../assets/heart.svg');
+    background-size: cover;
+    margin-right: 10px;
+    outline: none;
+    background-color: #ffff;
+    border: none;
+    cursor: pointer;
+}
+
+input:hover {
+    background-image: url('../../assets/blackHeart.svg')
+}

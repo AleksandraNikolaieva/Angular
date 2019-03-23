@@ -1,0 +1,42 @@
+.container {
+    position: absolute;
+    top:30%;
+    left:30%;
+    width:40%;
+    height:271px;
+    background:#fff;
+    border-radius:5px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+input{
+    height:50px;
+    width:90%;
+    margin:5px auto;
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,.1);
+    font-size: 20px;
+}
+
+input[type='button'],  input[type='submit'] {
+    width: 50%;
+    margin: 0px;
+    height: 80px;
+    border: none;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+input[type='submit'] {
+    background:#F19D94
+}
+input[type='button'] {
+    background: #D6D8C9;
+}
+
+input.ng-touched.ng-invalid{
+    background: #ffb3b3;
+}

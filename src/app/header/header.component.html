@@ -1,0 +1,8 @@
+<div>
+  <div class='owner' routerLink='/user/{{user?.id}}'>
+    <img class='avatar' src='{{user?.profile_image}}'>
+    <span>{{user?.login}}</span>
+  </div>
+  <input type="button" value='Log out' (click)='logOut()'>
+  <input type="button" value='Delete profile' (click)='deleteProfile()'>
+</div>

@@ -1,0 +1,11 @@
+<app-header></app-header>
+<div id='info'>
+<img id='avatar' src='{{user?.profile_image}}'>
+<p><img class='icon' src='../../assets/user.svg'><b>Name:</b> {{user?.first_name}} {{user?.last_name}}</p>
+<p *ngIf='user?.bio'><img class='icon' src='../../assets/info.svg'>{{user?.bio}}</p>
+<p *ngIf='user?.location'><img class='icon' src='../../assets/planet-earth.svg'><b>Location:</b> {{user?.location}}</p>
+</div>
+<div id='photos'>
+<img *ngFor='let photo of user?.photos' src='{{photo.url}}' routerLink='/photos/{{photo.id}}'>
+</div>
+<input type='button' (click)='goBack()' value='GO BACK'>

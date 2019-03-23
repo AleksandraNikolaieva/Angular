@@ -1,0 +1,37 @@
+div {
+    width: 100%;
+    height: 60px;
+    background: #282E33;
+}
+
+input {
+    width: 100px;
+    height: 60px;
+    background: #0000;
+    color: #ffff;
+    outline: none;
+    border: #ffff;
+    cursor: pointer;
+    float: right;
+}
+
+.avatar {
+    height: 48px;
+    margin-top: 5px;
+}
+
+.owner {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    cursor: pointer;
+    width: 200px;
+    float: left;
+    margin-left: 10px;
+}
+
+span {
+    margin-top: 18px;
+    margin-left: 10px;
+    color: #ffff;
+}

@@ -1,0 +1,18 @@
+#content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 99%;
+    margin: 0% 1%;
+}
+
+app-photo-card {
+    width: 19%;
+    display: inline-block;
+    margin: 0.3%;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+
+app-photo-card:hover {
+    transform: scale(1.05)
+}

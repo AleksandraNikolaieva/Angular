@@ -1,0 +1,8 @@
+<div class='card'>
+  <div class='owner' routerLink='/user/{{photoOwner?.id}}'>
+    <img class='avatar' src='{{photoOwner?.profile_image}}'>
+    <span>{{photoOwner?.login}}</span>
+  </div>
+  <img src='{{photo.url}}' routerLink='{{photo.id}}'>
+  <p><input type='button' #like (click)='toggleLike()'><b>Likes:</b> {{photo.likes_count}}</p>
+</div>
