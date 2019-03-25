@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteWarningComponent } from '../delete-warning/delete-warning.component';
 import { UserService } from '../services/user.service';
 import { PhotoService } from '../services/photo.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,6 @@ import { PhotoService } from '../services/photo.service';
 })
 export class HeaderComponent implements OnInit {
   private user: User;
-  private error: string;
 
   constructor(private userService: UserService, 
     private authService: AuthService,
@@ -37,27 +37,17 @@ export class HeaderComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(
       res => {
-      if(res) {
-        this.userService.deleteUser(this.user.id)
-        .subscribe(
-          () => {
-          this.authService.deleteLogin(this.user.id)
+        if(res) {
+          const deleteUser = this.userService.deleteUser(this.user.id);
+          const deleteLogin = this.authService.deleteLogin(this.user.id);
+
+          combineLatest(deleteUser, deleteLogin)
           .subscribe(
             () => {
-            this.photoService.getPhotosByUserId(this.user.id)
-            .subscribe(
-              photos => {
-                if(photos.length != 0) {
-                  this.photoService.deletePhotosByUserId(this.user.id)
-                  .subscribe(() => {}, error => window.alert(error))
-                }
-                this.authService.logOut();
-              },
-              error => window.alert(error))
+              this.authService.logOut();
             },
-            error => window.alert(error))
-          },
-          error => window.alert(error))
+            error => window.alert(error)
+          )
         }
       }
     )

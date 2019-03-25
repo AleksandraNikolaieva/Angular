@@ -4,7 +4,7 @@
   <p id='error'>{{error}}</p>
   <form (submit)='registrate()' [formGroup]='regForm'>
     <input type='text' formControlName='email' placeholder='email'><br>
-    <p *ngIf='!isMailFree'>This mail is already used</p>
+    <p *ngIf='errorMsg'>{{validData}}</p>
     <p *ngIf='isControlInvalid("email")'>Invalid email</p>
     <p *ngIf='isControlInvalid("password")'>Invalid password</p>
     <input type='password' formControlName='password' placeholder='password'>

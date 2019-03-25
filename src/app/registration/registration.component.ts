@@ -4,6 +4,7 @@ import { Router} from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { User } from '../models';
 import { UserService } from '../services/user.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +13,7 @@ import { UserService } from '../services/user.service';
 })
 export class RegistrationComponent implements OnInit {
   private regForm: FormGroup;
-  private isMailFree: boolean = true;
+  private errorMsg: string;
   private error: string;
 
   constructor(private authServise: AuthService, 
@@ -48,10 +49,14 @@ export class RegistrationComponent implements OnInit {
 
     const values = this.regForm.value;
 
-    this.authServise.isMailExist(values.email)
+    const isMailExist = this.authServise.isMailExist(values.email);
+    const isLoginExist = this.userService.isLoginExist(values.login);
+
+    combineLatest(isMailExist, isLoginExist)
     .subscribe(
       res => {
-        if(res.length === 0) {
+        console.log(res);
+        if(!res[0] && !res[1]) {
           this.authServise.addLogin(values.email, values.password)
           .subscribe(
             res => {
@@ -73,7 +78,7 @@ export class RegistrationComponent implements OnInit {
             error => this.error = error
           )
         } else {
-          this.isMailFree = false;
+          this.errorMsg = res[0] ? 'This mail is already in use' : 'This login is already in use';
         }
       },
       error => this.error = error

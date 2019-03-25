@@ -43,8 +43,11 @@ export class AuthService {
     )
   }
 
-  public isMailExist(email: string): Observable<Login[]> {
+  public isMailExist(email: string): Observable<boolean> {
     return this.httpClient.get<Login[]>(`${this.url}/?email=${email}`)
+    .pipe(
+      map(login => login.length === 0 ? false : true)
+    )
   }
 
   public deleteLogin(id: number): Observable<Login> {
