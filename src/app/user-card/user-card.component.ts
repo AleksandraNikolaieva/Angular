@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User, Photo } from '../models';
-import { tap, map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { UserService } from '../user.service';
+import { PhotoService } from '../photo.service';
 
 @Component({
   selector: 'app-user-card',
@@ -12,15 +12,26 @@ import { UserService } from '../user.service';
 })
 export class UserCardComponent implements OnInit {
   private user: User;
+  private photos: Photo[];
+  private error: string;
 
   constructor(private activateRoute: ActivatedRoute, 
     private location: Location,
-    private userService: UserService) { }
+    private userService: UserService,
+    private photoService: PhotoService) { }
 
   ngOnInit() {
     this.activateRoute.params.subscribe(param => {
       this.userService.getUserById(param.id)
-      .subscribe(res => this.user = res);
+      .subscribe(
+        res => this.user = res,
+        error => this.error = error
+      );
+      this.photoService.getPhotosByUserId(param.id)
+      .subscribe(
+        photos => this.photos = photos,
+        error => this.error = error
+      );
     })
   }
 

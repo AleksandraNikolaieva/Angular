@@ -44,3 +44,7 @@ input[type='button'] {
 input[type='button']:hover {
     transform: scale(0.9);
 }
+
+#error {
+    color: #ff0000;
+}

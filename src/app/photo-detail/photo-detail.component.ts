@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteWarningComponent } from '../delete-warning/delete-warning.component';
 import { Location } from '@angular/common';
-import { AuthService } from '../auth.service'
 import { UserService } from '../user.service';
 import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { PhotoService } from '../photo.service';
 
 @Component({
   selector: 'app-photo-detail',
@@ -19,12 +18,14 @@ export class PhotoDetailComponent implements OnInit {
   private loggedUser: User;
   private photoOwner: User;
   private isEditFormOpen: boolean = false;
+  private editNum: number;
+  private error: string;
 
   constructor(private activateRoute: ActivatedRoute,
     private matDialog: MatDialog,
-    private authService: AuthService,
+    private userService: UserService,
     private location: Location,
-    private userService: UserService) { }
+    private photoService: PhotoService) { }
 
   ngOnInit() {
     this.getPhoto();
@@ -33,27 +34,20 @@ export class PhotoDetailComponent implements OnInit {
 
   private getPhoto() {
     this.activateRoute.params.subscribe(params => {
-      this.userService.getUsers()
-      .pipe(
-        map(users => {
-          let photo: Photo;
-          users.map(user => {
-            const photoItem = user.photos.find(photo => photo.id === +params.id);
-            if(photoItem) {
-              photo = photoItem;
-              this.userService.getUserById(photo.id).subscribe(user => this.photoOwner = user);
-            }
-          })
-          return photo;
-        })
-      )
-      .subscribe(res => this.photo = res);
+      this.photoService.getPhotoById(params.id)
+      .subscribe(
+        photo => this.photo = photo,
+        error => this.error = error
+      );
     })
   }
 
   private getLoggedUser() {
-    this.userService.getUserById(+localStorage.getItem('id'))
-    .subscribe(user => this.loggedUser = user);
+    this.userService.getUserById(JSON.parse(localStorage.getItem('login')).id)
+    .subscribe(
+      user => this.loggedUser = user,
+      error => this.error = error
+    );
   }
 
   private addComment(text: string): void {
@@ -62,11 +56,14 @@ export class PhotoDetailComponent implements OnInit {
     }
     const newComment = new Comment(this.loggedUser.login, text, new Date().toISOString());
     this.photo.comments.push(newComment);
-    this.userService.getUserById(this.photo.userId)
-    .subscribe(user => {
-      this.photoOwner.photos.find(photo => photo.id === this.photo.id).comments.push(newComment);
-      this.userService.updeteUser(this.photoOwner).subscribe();
-    })
+    this.photoService.updetePhoto(this.photo)
+    .subscribe(
+      () => {},
+      error => {
+        this.error = error;
+        this.photo.comments.pop()
+      }
+    );
   }
 
   private deleteComment(index: number) {
@@ -74,9 +71,14 @@ export class PhotoDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
-        this.photo.comments.splice(index, 1);
-        this.photoOwner.photos.find(photo => photo.id === this.photo.id).comments.splice(index, 1);
-        this.userService.updeteUser(this.photoOwner).subscribe();
+        let deletedComment: Comment= this.photo.comments.splice(index, 1)[0];
+        this.photoService.updetePhoto(this.photo).subscribe(
+          () => {},
+          error => {
+            this.error = error;
+            this.photo.comments.push(deletedComment);
+          }
+        );
       }
     })
   }
@@ -85,10 +87,15 @@ export class PhotoDetailComponent implements OnInit {
     if(text === '') {
       return;
     }
+    let previousComment = this.photo.comments[index].text;
     this.photo.comments[index].text = text;
-    this.photoOwner.photos.find(photo => photo.id === this.photo.id)
-    .comments[index].text = text;
-    this.userService.updeteUser(this.photoOwner).subscribe();
+    this.photoService.updetePhoto(this.photo).subscribe(
+      () => {},
+      error => {
+        this.error = error
+        this.photo.comments[index].text = previousComment;
+      }
+    );
   }
 
   private goBack() {

@@ -3,14 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CanvasComponent } from './canvas/canvas.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { HeaderComponent } from './header/header.component';
-//import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
 import { PhotoCardComponent } from './photo-card/photo-card.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -18,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteWarningComponent } from './delete-warning/delete-warning.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
+import { HttpErrorInterceptor } from './http-error.interseptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
     MainComponent,
     RegistrationComponent,
     HeaderComponent,
-    //PhotoDetailComponent,
     PhotoCardComponent,
     UserCardComponent,
     NotFoundComponent,
@@ -42,7 +41,13 @@ import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
     MatDialogModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteWarningComponent]
 })

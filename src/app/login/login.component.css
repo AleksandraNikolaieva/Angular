@@ -39,5 +39,9 @@ input[type='button'] {
 }
 
 input.ng-touched.ng-invalid{
-    background: #ffb3b3;
+    background-color: #ffb3b3;
+}
+
+p {
+    color: #ff0000;
 }

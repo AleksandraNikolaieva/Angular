@@ -42,10 +42,11 @@ export class CanvasComponent implements OnInit, OnDestroy {
 
   private createCircles(quantity: number) {
     const colors: string[] = ['#204E5F', '#FFC6A8', '#FF8984', '#B7D7D8', '#EDF7F5'];
+    
     for(let i = 0; i < quantity; i++) {
       let r = Math.floor(2 + Math.random() * 20);
-      let x = Math.floor(Math.random() * this.width);
-      let y = Math.floor(Math.random() * this.height);
+      let x = Math.floor(r + Math.random() * (this.width - 2 * r));
+      let y = Math.floor(r + Math.random() * (this.height - 2 * r));
       let colorIndex = Math.floor(Math.random() * colors.length);
       let color = colors[colorIndex];
       let speedX = (Math.random() - 0.5) * 1.5;

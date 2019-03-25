@@ -6,6 +6,7 @@
     <p *ngIf='!isLoginExist'>Incorrect email or password</p>
     <p *ngIf='isControlInvalid("email")'>Invalid email</p>
     <p *ngIf='isControlInvalid("password")'>Invalid password</p>
+    <p *ngIf='error'>Ooops, something went wrong<br>{{error}}</p>
     <input type='password' formControlName='password' placeholder='password' autocomplete>
     <input type='submit' value='log in'>
     <input type='button' value='sign up' routerLink='/registration'>

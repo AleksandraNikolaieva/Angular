@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { Photo, User } from '../models';
 import { UserService } from '../user.service';
+import { PhotoService } from '../photo.service';
 
 @Component({
   selector: 'app-photo-card',
@@ -14,11 +15,15 @@ export class PhotoCardComponent implements OnInit, AfterViewInit {
   private photoOwner: User;
   private loggedUser: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, 
+    private photoService: PhotoService,
+    private renderer: Renderer2) { }
 
   ngOnInit() {
     this.userService.getUserById(this.photo.userId)
-    .subscribe(user => this.photoOwner = user);
+    .subscribe(
+      user => this.photoOwner = user,
+      error => window.alert(error));
   }
 
   ngAfterViewInit() {
@@ -26,36 +31,44 @@ export class PhotoCardComponent implements OnInit, AfterViewInit {
   }
 
   private toggleLike() {
-    this.isLiked = !this.isLiked;
+    this.changeLikeCount();
+    this.photoService.updetePhoto(this.photo)
+    .subscribe(
+      () => {},
+      error => {
+        window.alert(error);
+        this.changeLikeCount();
+      })
+  }
 
-    if(this.isLiked === true) {
+  private changeLikeCount() {
+    this.isLiked = !this.isLiked;
+    if(this.isLiked) {
       this.photo.likes_count++;
-      this.photoOwner.photos.find(el => el.id === this.photo.id).likes_count++;
-      this.like.nativeElement.style.backgroundImage = "url('../../assets/blackHeart.svg')";
-      this.photoOwner.photos.find(el => el.id === this.photo.id).liked_by.push(this.loggedUser.login);
+      this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/blackHeart.svg")');
+      this.photo.liked_by.push(this.loggedUser.login);
     } else {
       this.photo.likes_count--;
-      this.photoOwner.photos.find(el => el.id === this.photo.id).likes_count--;
-      this.like.nativeElement.style.backgroundImage = "url('../../assets/heart.svg')";
+      this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/heart.svg")')
       const index = this.photo.liked_by.indexOf(this.loggedUser.login);
-      this.photoOwner.photos.find(el => el.id === this.photo.id).liked_by.splice(index, 1);
+      this.photo.liked_by.splice(index, 1);
     }
-
-    this.userService.updeteUser(this.photoOwner)
-    .subscribe()
   }
 
   private markLikes() {
     const likesFrom = this.photo.liked_by;
-    this.userService.getUserById(+localStorage.getItem('id'))
-    .subscribe(user => {
-      this.loggedUser = user;
-      likesFrom.forEach(user => {
-        if(user === this.loggedUser.login) {
-          this.isLiked = true;
-          this.like.nativeElement.style.backgroundImage = "url('../../assets/blackHeart.svg')";
-        }
-      })
-    });
+    this.userService.getUserById(JSON.parse(localStorage.getItem('login')).id)
+    .subscribe(
+      user => {
+        this.loggedUser = user;
+        likesFrom.forEach(user => {
+          if(user === this.loggedUser.login) {
+            this.isLiked = true;
+            this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/blackHeart.svg")');
+          }
+        })
+      },
+      error => window.alert(error)
+    );
   }
 }

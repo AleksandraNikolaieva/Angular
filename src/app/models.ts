@@ -42,8 +42,7 @@ export class Circle {
       public last_name: string,
       public bio: string,
       public location: string,
-      public profile_image: string,
-      public photos: Photo[],
+      public profile_image: string = '../assets/avatar.jpg',
       public id?: number,
     ) {}
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { Photo, User } from '../models';
 import { map } from 'rxjs/operators';
+import { PhotoService } from '../photo.service';
 
 @Component({
   selector: 'app-main',
@@ -9,36 +9,18 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  photos: Photo[];
+  private photos: Photo[];
+  private error: string;
 
-  constructor(private usersService: UserService) { }
+  constructor(private photoService: PhotoService) { }
 
   ngOnInit() {
     this.getPhotos();
   }
 
   private getPhotos() {
-    this.usersService.getUsers()
-    .pipe(
-      map(users => {
-        let photos: Photo[] = [];
-        users.map(user => {
-          for(let photo of user.photos) {
-            photos.push(photo);
-          }
-        })
-        return photos;
-      })
-    )
-    .subscribe(photos => {
-      photos.sort((photo1, photo2) => {
-        if(photo1.created_at > photo2.created_at) {
-          return -1;
-        } else {
-          return 1;
-        }
-      })
-      return this.photos = photos
-    })
+    this.photoService.getPhotos().subscribe(
+      photos => this.photos = photos,
+      error => this.error = error)
   }
 }

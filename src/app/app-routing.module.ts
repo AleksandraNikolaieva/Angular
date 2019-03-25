@@ -19,6 +19,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'registration',
+    component: RegistrationComponent
+  },
+  {
     path: 'photos',
     component: MainComponent,
     canActivate: [AuthGuard]
@@ -32,10 +36,6 @@ const routes: Routes = [
     path: 'user/:id',
     component: UserCardComponent,
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent
   },
   {
     path: '**',

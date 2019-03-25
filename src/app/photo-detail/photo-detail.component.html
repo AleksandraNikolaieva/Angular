@@ -1,21 +1,27 @@
 <app-header></app-header>
+<p id='error'>{{error}}</p>
 <div class='card' *ngIf = 'photo'>
   <app-photo-card [photo]='photo'></app-photo-card>
   <div class='comments'>
-      <p *ngIf='photo.description'>Description:<br>{{photo?.description}}</p>
-      <p>Comments:</p>
-      <div *ngFor='let comment of photo.comments; let i = index' class='commentItem'>
-        <b>{{comment.user}}</b>
-        <span class='date'>{{comment.date | date:'M/d/yy h:mm'}}</span><br>
-        <span>{{comment.text}}</span>
-        <textarea class='edit' #edit *ngIf='isEditFormOpen && loggedUser?.login === comment.user' (keyup.enter)='editComment(i, edit.value); isEditFormOpen = false'>{{comment.text}}</textarea>
-        <div class='actions' *ngIf='loggedUser?.login === comment.user'>
-            <input type='button' class='editBtn' (click)='isEditFormOpen = true'>
+      <b>Comments:</b>
+      <div class='comment-holder'>
+        <p *ngIf='photo.description'>Description:<br>{{photo?.description}}</p>
+        <div *ngFor='let comment of photo.comments; let i = index' class='commentItem'>
+          <b>{{comment.user}}</b>
+          <span class='date'>{{comment.date | date:'M/d/yy h:mm'}}</span><br>
+          <p class='text'>{{comment.text}}
+            <textarea #edit wrap='hard' *ngIf='isEditFormOpen && i === editNum && loggedUser?.login === comment.user' (keyup.enter)='editComment(i, edit.value); isEditFormOpen = false'>{{comment.text}}</textarea>
+          </p>
+          <div class='actions' *ngIf='loggedUser?.login === comment.user'>
+            <input type='button' class='editBtn' (click)='isEditFormOpen = true; editNum = i'>
             <input type='button' class='deleteBtn' (click)='deleteComment(i)'>
+          </div>
         </div>
       </div>
-      <b>Add comment: </b>
-      <input #comment type='text' (keyup.enter)='addComment(comment.value); comment.value=""' required>
+      <div class='add-comment'>
+        <b>Add comment: </b>
+        <input #comment type='text' (keyup.enter)='addComment(comment.value); comment.value=""' required>
+      </div>
       <input type='button' id='goBack' (click)='goBack()' value='GO BACK'>
   </div>
 </div>

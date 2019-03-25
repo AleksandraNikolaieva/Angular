@@ -16,3 +16,8 @@ app-photo-card {
 app-photo-card:hover {
     transform: scale(1.05)
 }
+
+p {
+    color: #ff0000;
+    width: 35%;
+}

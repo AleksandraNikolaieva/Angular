@@ -11,6 +11,7 @@ import { Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   private logInForm: FormGroup;
   private isLoginExist: boolean = true;
+  private error: string;
 
   constructor(private authServise: AuthService,
     private formBuilder: FormBuilder,
@@ -25,11 +26,16 @@ export class LoginComponent implements OnInit {
     const local = JSON.parse(localStorage.getItem('login'));
     if(local != undefined) {
       this.authServise.logIn(local.email, local.password)
-      .subscribe(res => {
-        if(res) {
-          this.route.navigate(['/photos']);
-        }
-      })
+      .subscribe(
+        res => {
+          if(res) {
+            this.route.navigate(['/photos']);
+          } else {
+            localStorage.removeItem('login');
+          }
+        },
+        error => this.error = error
+      );
     }
   }
 
@@ -51,13 +57,16 @@ export class LoginComponent implements OnInit {
 
     const values = this.logInForm.value;
     this.authServise.logIn(values.email, values.password)
-    .subscribe(res => {
-      if(!res) {
-        this.isLoginExist = false;
-      } else {
-        this.route.navigate(['/photos']);
-      }
-    });
+    .subscribe(
+      res => {
+        if(!res) {
+          this.isLoginExist = false;
+        } else {
+          this.route.navigate(['/photos']);
+        }
+      },
+      error => this.error = error
+    );
   }
   
   isControlInvalid(controlName: string): boolean {

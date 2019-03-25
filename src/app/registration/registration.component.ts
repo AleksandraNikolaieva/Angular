@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router} from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Login } from '../models';
+import { User } from '../models';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,10 +13,12 @@ import { Login } from '../models';
 export class RegistrationComponent implements OnInit {
   private regForm: FormGroup;
   private isMailFree: boolean = true;
+  private error: string;
 
   constructor(private authServise: AuthService, 
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.formInit();
@@ -24,7 +27,13 @@ export class RegistrationComponent implements OnInit {
   private formInit() {
     this.regForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.minLength(3), Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(3)]]
+      password: [null, [Validators.required, Validators.minLength(3)]],
+      login: [null, [Validators.required, Validators.minLength(3)]],
+      firstName: [null],
+      lastName: [null],
+      bio: [null],
+      location: [null],
+      photo: [null]
     })
   }
 
@@ -40,19 +49,35 @@ export class RegistrationComponent implements OnInit {
     const values = this.regForm.value;
 
     this.authServise.isMailExist(values.email)
-    .subscribe(res => {
-      console.log(res);
-      if(res.length === 0) {
-        this.authServise.addLogin(values.email, values.password)
-        .subscribe(res => {
-          if(res) {
-            this.router.navigate(['/photos']);
-          }
-        })
-      } else {
-        this.isMailFree = false;
-      }
-    });
+    .subscribe(
+      res => {
+        if(res.length === 0) {
+          this.authServise.addLogin(values.email, values.password)
+          .subscribe(
+            res => {
+              if(res) {
+                const newUser = new User(
+                  values.login,
+                  values.firstName,
+                  values.lastName,
+                  values.bio,
+                  values.location,
+                  values.photo ? values.photo : undefined
+                );
+                this.userService.addUser(newUser).subscribe(
+                  res => res ? this.router.navigate(['/photos']) : () => {},
+                  error => this.error = error 
+                );
+              }
+            },
+            error => this.error = error
+          )
+        } else {
+          this.isMailFree = false;
+        }
+      },
+      error => this.error = error
+    );
   }
 
   isControlInvalid(controlName: string): boolean {
