@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User, Photo } from '../models';
 import { Location } from '@angular/common';
-import { UserService } from '../user.service';
-import { PhotoService } from '../photo.service';
+import { UserService } from '../services/user.service';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-user-card',

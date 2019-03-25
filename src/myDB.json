@@ -94,6 +94,11 @@
       "id": 19,
       "email": "def19@gmail.com",
       "password": "pass19"
+    },
+    {
+      "email": "sanshitochk@gmil.com",
+      "password": "cnfnbcnbrf",
+      "id": 20
     }
   ],
   "users": [
@@ -267,6 +272,15 @@
       "bio": "Follower of Jesus Christ • Captivated by moments that matter.'Dadda, Momma said we are rich in moments...'",
       "location": "Fort Collins, CO",
       "profile_image": "https://images.unsplash.com/profile-1531110071346-fb8a4e44aec8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128"
+    },
+    {
+      "login": "sashi",
+      "first_name": "Alex",
+      "last_name": "Nikolaieva",
+      "bio": "bio",
+      "location": "Dnipro",
+      "profile_image": "../assets/avatar.jpg",
+      "id": 20
     }
   ],
   "photos": [

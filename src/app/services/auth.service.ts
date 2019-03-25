@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login } from './models';
-import { map } from 'rxjs/operators';
+import { Login } from '../models';
+import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -38,6 +38,9 @@ export class AuthService {
 
   public addLogin(email: string, password: string): Observable<Login> {
     return this.httpClient.post<Login>(this.url, {"email": email, "password": password})
+    .pipe(
+      tap(login => localStorage.setItem('login', JSON.stringify({id: login.id, email: email, password: password})))
+    )
   }
 
   public isMailExist(email: string): Observable<Login[]> {

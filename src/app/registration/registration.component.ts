@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router} from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { User } from '../models';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -65,7 +65,7 @@ export class RegistrationComponent implements OnInit {
                   values.photo ? values.photo : undefined
                 );
                 this.userService.addUser(newUser).subscribe(
-                  res => res ? this.router.navigate(['/photos']) : () => {},
+                  res => this.router.navigate(['/photos']),
                   error => this.error = error 
                 );
               }

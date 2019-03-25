@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { Photo, User } from '../models';
-import { UserService } from '../user.service';
-import { PhotoService } from '../photo.service';
+import { UserService } from '../services/user.service';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-photo-card',

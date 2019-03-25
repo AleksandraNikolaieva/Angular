@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteWarningComponent } from '../delete-warning/delete-warning.component';
 import { Location } from '@angular/common';
-import { UserService } from '../user.service';
-import { map } from 'rxjs/operators';
-import { PhotoService } from '../photo.service';
+import { UserService } from '../services/user.service';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-photo-detail',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteWarningComponent } from '../delete-warning/delete-warning.component';
-import { UserService } from '../user.service';
-import { PhotoService } from '../photo.service';
+import { UserService } from '../services/user.service';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-header',

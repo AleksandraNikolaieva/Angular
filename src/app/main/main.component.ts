@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Photo, User } from '../models';
-import { map } from 'rxjs/operators';
-import { PhotoService } from '../photo.service';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-main',
