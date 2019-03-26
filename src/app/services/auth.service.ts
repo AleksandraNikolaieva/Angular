@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private url: string = 'http://localhost:3000/logins';
 
-  public isUserLogged: boolean = false;
+  private isUserLogged: boolean = false;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -39,7 +39,10 @@ export class AuthService {
   public addLogin(email: string, password: string): Observable<Login> {
     return this.httpClient.post<Login>(this.url, {"email": email, "password": password})
     .pipe(
-      tap(login => localStorage.setItem('login', JSON.stringify({id: login.id, email: email, password: password})))
+      tap(login => {
+        this.isUserLogged = true;
+        localStorage.setItem('login', JSON.stringify({id: login.id, email: email, password: password}))
+      })
     )
   }
 
@@ -52,6 +55,10 @@ export class AuthService {
 
   public deleteLogin(id: number): Observable<Login> {
     return this.httpClient.delete<Login>(`${this.url}/${id}`)
+  }
+
+  public isUserLoggedIn(): boolean {
+    return this.isUserLogged
   }
 }
 

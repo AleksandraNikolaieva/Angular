@@ -18,8 +18,10 @@ export class MainComponent implements OnInit {
   }
 
   private getPhotos() {
-    this.photoService.getPhotos().subscribe(
+    this.photoService.getPhotos()
+    .subscribe(
       photos => this.photos = photos,
-      error => this.error = error)
+      error => this.error = error
+    )
   }
 }

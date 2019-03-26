@@ -89,6 +89,11 @@
       "id": 18,
       "email": "def18@gmail.com",
       "password": "pass18"
+    },
+    {
+      "id": 19,
+      "email": "def19@gmail.com",
+      "password": "pass19"
     }
   ],
   "users": [
@@ -253,6 +258,15 @@
       "bio": "Food stylist & photographer. Loves nature and healthy food . Always happy to drink a good cup of coffee ☕️Girl from Poland living in Uk ",
       "location": "UK",
       "profile_image": "https://images.unsplash.com/profile-1500391272480-fa84aef91909?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128"
+    },
+    {
+      "id": 19,
+      "login": "joshapplegate",
+      "first_name": "Josh",
+      "last_name": "Applegate",
+      "bio": "Follower of Jesus Christ • Captivated by moments that matter.'Dadda, Momma said we are rich in moments...'",
+      "location": "Fort Collins, CO",
+      "profile_image": "https://images.unsplash.com/profile-1531110071346-fb8a4e44aec8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128"
     }
   ],
   "photos": [
@@ -568,6 +582,35 @@
       "liked_by": [],
       "url": "https://images.unsplash.com/photo-1552570173-43e2d76c37f4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
       "comments": []
+    },
+    {
+      "id": 25,
+      "userId": 19,
+      "created_at": "2019-03-14T17:56:10-04:00",
+      "description": null,
+      "categories": [],
+      "likes_count": 8,
+      "liked_by": [
+        "bantersnaps"
+      ],
+      "url": "https://images.unsplash.com/photo-1552600552-fe9fe20694c4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
+      "comments": [
+        {
+          "user": "bantersnaps",
+          "text": "aergaergf",
+          "date": "2019-03-25T06:38:49.023Z"
+        },
+        {
+          "user": "bantersnaps",
+          "text": "egaegregeg",
+          "date": "2019-03-25T06:38:53.107Z"
+        },
+        {
+          "user": "bantersnaps",
+          "text": "grgregg",
+          "date": "2019-03-25T06:38:56.888Z"
+        }
+      ]
     }
   ]
 }

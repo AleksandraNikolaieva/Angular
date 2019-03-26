@@ -30,8 +30,8 @@ export class RegistrationComponent implements OnInit {
       email: [null, [Validators.required, Validators.minLength(3), Validators.email]],
       password: [null, [Validators.required, Validators.minLength(3)]],
       login: [null, [Validators.required, Validators.minLength(3)]],
-      firstName: [null],
-      lastName: [null],
+      firstName: [null, [Validators.required, Validators.minLength(3)]],
+      lastName: [null, [Validators.required, Validators.minLength(3)]],
       bio: [null],
       location: [null],
       photo: [null]
@@ -55,20 +55,17 @@ export class RegistrationComponent implements OnInit {
     combineLatest(isMailExist, isLoginExist)
     .subscribe(
       res => {
-        console.log(res);
         if(!res[0] && !res[1]) {
           this.authServise.addLogin(values.email, values.password)
           .subscribe(
             res => {
               if(res) {
-                const newUser = new User(
-                  values.login,
-                  values.firstName,
+                const newUser = new User(values.login, 
+                  values.firstName, 
                   values.lastName,
-                  values.bio,
-                  values.location,
-                  values.photo ? values.photo : undefined
-                );
+                  values.bio, 
+                  values.location, 
+                  values.photo ? values.photo : undefined);
                 this.userService.addUser(newUser).subscribe(
                   res => this.router.navigate(['/photos']),
                   error => this.error = error 
