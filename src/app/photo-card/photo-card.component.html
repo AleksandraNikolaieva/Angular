@@ -4,5 +4,5 @@
     <span>{{photoOwner?.login}}</span>
   </div>
   <img src='{{photo.url}}' routerLink='{{photo.id}}'>
-  <p><input type='button' #like (click)='toggleLike()'><b>Likes:</b> {{photo.likes_count}}</p>
+  <p><input type='button' [ngClass]={blackHeart:isLiked} #like (click)='toggleLike()'><b>Likes:</b> {{photo.likes_count}}</p>
 </div>

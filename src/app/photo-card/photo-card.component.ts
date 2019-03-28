@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import { Photo, User } from '../models';
 import { UserService } from '../services/user.service';
 import { PhotoService } from '../services/photo.service';
@@ -10,20 +10,19 @@ import { PhotoService } from '../services/photo.service';
 })
 export class PhotoCardComponent implements OnInit, AfterViewInit {
   @Input() private photo: Photo;
-  @ViewChild('like') private like: ElementRef;
   private isLiked: boolean = false;
   private photoOwner: User;
   private loggedUser: User;
 
   constructor(private userService: UserService, 
-    private photoService: PhotoService,
-    private renderer: Renderer2) { }
+    private photoService: PhotoService) { }
 
   ngOnInit() {
     this.userService.getUserById(this.photo.userId)
     .subscribe(
       user => this.photoOwner = user,
-      error => window.alert(error));
+      error => window.alert(error)
+    );
   }
 
   ngAfterViewInit() {
@@ -38,18 +37,17 @@ export class PhotoCardComponent implements OnInit, AfterViewInit {
       error => {
         window.alert(error);
         this.changeLikeCount();
-      })
+      }
+    )
   }
 
   private changeLikeCount() {
     this.isLiked = !this.isLiked;
     if(this.isLiked) {
       this.photo.likes_count++;
-      this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/blackHeart.svg")');
       this.photo.liked_by.push(this.loggedUser.login);
     } else {
       this.photo.likes_count--;
-      this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/heart.svg")')
       const index = this.photo.liked_by.indexOf(this.loggedUser.login);
       this.photo.liked_by.splice(index, 1);
     }
@@ -64,7 +62,6 @@ export class PhotoCardComponent implements OnInit, AfterViewInit {
         likesFrom.forEach(user => {
           if(user === this.loggedUser.login) {
             this.isLiked = true;
-            this.renderer.setStyle(this.like.nativeElement, 'backgroundImage', 'url("../../assets/blackHeart.svg")');
           }
         })
       },

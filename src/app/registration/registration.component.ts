@@ -65,7 +65,8 @@ export class RegistrationComponent implements OnInit {
                   values.lastName,
                   values.bio, 
                   values.location, 
-                  values.photo ? values.photo : undefined);
+                  values.photo ? values.photo : undefined
+                );
                 this.userService.addUser(newUser).subscribe(
                   res => this.router.navigate(['/photos']),
                   error => this.error = error 

@@ -41,6 +41,6 @@ input {
     cursor: pointer;
 }
 
-input:hover {
+.blackHeart {
     background-image: url('../../assets/blackHeart.svg')
 }

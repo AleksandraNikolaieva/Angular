@@ -276,9 +276,8 @@
       "created_at": "2019-03-14T12:23:14-04:00",
       "description": "waterfall",
       "categories": [],
-      "likes_count": 75,
+      "likes_count": 74,
       "liked_by": [
-        "bantersnaps",
         "sanshi"
       ],
       "url": "https://images.unsplash.com/photo-1552580535-49f1f22dfbcb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
@@ -312,9 +311,8 @@
       "created_at": "2019-03-14T20:18:10-04:00",
       "description": null,
       "categories": [],
-      "likes_count": 86,
+      "likes_count": 85,
       "liked_by": [
-        "rolandsvarsbergs",
         "sanshi"
       ],
       "url": "https://images.unsplash.com/photo-1552609034-5cc4969282a4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
@@ -337,9 +335,10 @@
       "created_at": "2019-03-15T00:13:45-04:00",
       "description": null,
       "categories": [],
-      "likes_count": 43,
+      "likes_count": 44,
       "liked_by": [
-        "theguywithacamera"
+        "theguywithacamera",
+        "bantersnaps"
       ],
       "url": "https://images.unsplash.com/photo-1552623083-0bd5caaa07b1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
       "comments": []
@@ -350,10 +349,8 @@
       "created_at": "2019-03-14T13:20:54-04:00",
       "description": null,
       "categories": [],
-      "likes_count": 15,
-      "liked_by": [
-        "bantersnaps"
-      ],
+      "likes_count": 14,
+      "liked_by": [],
       "url": "https://images.unsplash.com/photo-1552583995-c307cfb8fe4a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
       "comments": []
     },
@@ -589,9 +586,10 @@
       "created_at": "2019-03-14T17:56:10-04:00",
       "description": null,
       "categories": [],
-      "likes_count": 8,
+      "likes_count": 9,
       "liked_by": [
-        "bantersnaps"
+        "bantersnaps",
+        "test"
       ],
       "url": "https://images.unsplash.com/photo-1552600552-fe9fe20694c4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjYxMTUwfQ",
       "comments": [
