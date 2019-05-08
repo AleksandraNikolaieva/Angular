@@ -30,8 +30,8 @@ span {
 }
 
 input {
-    width: 30px;
-    height: 30px;
+    width: 2vw;
+    height: 2vw;
     background-image: url('../../assets/heart.svg');
     background-size: cover;
     margin-right: 10px;
